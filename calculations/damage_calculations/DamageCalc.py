@@ -1,6 +1,8 @@
 
 from math import floor
-from calculations.DataTypes import Paste, Moves  # Maybe Include Spread
+import sys
+sys.path.insert(0, r"C:\Users\kalem\OneDrive\Desktop\Calculator\calculations")
+from DataTypes import Paste, Moves, Spread
 from Constants import LEVEL, NATURES
 
 def calculate_damage(attacking_paste: Paste, defending_paste: Paste, used_move: Moves):
@@ -22,8 +24,8 @@ def calculate_damage(attacking_paste: Paste, defending_paste: Paste, used_move: 
     
     category = used_move.category
     if category == "Physical":
-        atk_bs = attacking_paste.stats["Atk"]
-        def_bs = defending_paste.stats["Def"]
+        atk_bs = (attacking_paste.stats).Atk
+        def_bs = (defending_paste.stats).Def
     elif category == "Special":
         atk_bs = attacking_paste.stats["SpA"]
         def_bs = defending_paste.stats["SpD"]
@@ -44,17 +46,16 @@ def main():
         "Life Orb",
         "Orichalcum Pulse",
         "Fire",
-        {"HP": 179, "Atk": 178, "Def": 141, "SpA": 94, "SpD": 121, "Spe": 205},
-        None
+        Spread({"HP": 179, "Atk": 178, "Def": 141, "SpA": 94, "SpD": 121, "Spe": 205})
     )
     paste2 = Paste(
         "Calyrex-Shadow",
         "Life Orb",
         "As One (Spectrier)",
         "Water",
-        {"HP": 179, "Atk": 81, "Def": 117, "SpA": 193, "SpD": 125, "Spe": 222},
-        None
+        Spread({"HP": 179, "Atk": 81, "Def": 117, "SpA": 193, "SpD": 125, "Spe": 222})
     )
     flare_blitz = Moves("Flare Blitz")
     print(calculate_damage(paste1, paste2, flare_blitz))
     
+main()

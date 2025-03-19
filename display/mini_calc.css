@@ -211,3 +211,46 @@ h1 {
     flex-direction: column;
     padding-top: 10px;
 }
+
+.field-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.field-grid weather, .field-grid terrain {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.weather-select, .terrain-select {
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin: 5px auto;
+    font-size: 0.7rem;
+}
+
+.weather-select:focus {
+    outline: none;
+    border-color: #d73636;
+}
+
+.weather-select option {
+    padding: 5px;
+}
+
+.terrain-select:focus {
+    outline: none;
+    border-color: #d73636;
+}
+
+.terrain-select option {
+    padding: 5px;
+}

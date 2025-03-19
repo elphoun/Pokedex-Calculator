@@ -3,10 +3,8 @@ from re import MULTILINE, findall
 from math import floor
 from PConstants import BASE_STATS, LEVEL, EVTEMPLATE, IVTEMPLATE, NATURE
 import sys
-
-sys.path.append("../calculations")
-
-from calculations.DataTypes import Paste, Moves, Spread
+sys.path.insert(0, r"C:\Users\kalem\OneDrive\Desktop\Calculator\calculations")
+from DataTypes import Paste, Moves, Spread
 
 def digest_paste(raw_paste) -> Paste:
     """
@@ -114,6 +112,3 @@ def get_stat(stat, EV, IV, stat_boost, stat_reduce, is_HP):
         final_stat += 5
     
     return final_stat
-    
-    
-                
