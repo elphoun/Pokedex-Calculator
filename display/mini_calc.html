@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex Calculator</title>
+    <link rel="stylesheet" href="mini_calc.css">
+</head>
+
+<body>
+    <h1>Pokedex Calculator</h1>
+
+    <div class = "container">
+
+        <!-- Attacker Section -->
+        <div class = "attacker"> 
+
+            <!-- Label -->
+            <div class = "label">ATTACKER</div>
+
+            <!-- Search Bar -->
+            <div class="search-bar-attack">
+                <div class="search-bar">
+                    <input type="text" id = "input-box" placeholder="Abomasnow" autocomplete="off"> 
+                </div>
+                <div class="results"></div>
+                <script src="autocomplete.js"></script>
+                <button><img src="sprites/search_button.png" 
+                             placeholder="search" 
+                             class="search-button">
+                </button>
+            </div>
+
+            <!-- Pokemon Sprite -->
+            <img src="sprites/pokemon/0645-incarnate.png"
+                 alt="Landorus-Incarnate"
+                 class="pokemon-sprites">
+
+            <!-- EV Inputs -->
+            <div class="ev">
+                <div class="ev_input">
+                    <div class="ev_label">Atk</div>
+                    <input type="number" placeholder="0">
+                </div>
+                <div class="ev_input">
+                    <div class="ev_label">SpA</div>
+                    <input type="number" placeholder="0">
+                </div>
+            </div>
+            <button class="compute-damage">Attack!</button>
+        </div>
+
+        <!-- Output of Result -->
+        <div class = "output">
+            <div class="label">OUTPUT</div>
+            <div class="output-text">
+                <script src="damage_calculator.js"></script>
+            </div>
+        </div>
+
+
+        <!-- Field Conditions-->
+        <div class = "field-conditions">
+            <div class="label">FIELD</div>
+        </div>
+        
+
+        <!-- Defender Section -->
+        <div class = "defender">
+            <div class="label">DEFENDER</div>
+            <!-- Search Bar -->
+            <div class="search-bar-defend">
+                <div class="search-bar">
+                    <input type="text" id = "input-box" placeholder="Abomasnow" autocomplete="off"> 
+                </div>
+                <div class="results"></div>
+                <script src="autocomplete.js"></script>
+                <button><img src="sprites/search_button.png" 
+                             placeholder="search" 
+                             class="search-button">
+                </button>
+            </div>
+
+            <!-- Pokemon Sprite -->
+            <img src="sprites/pokemon/0645-incarnate.png"
+                 alt="Landorus-Incarnate"
+                 class="pokemon-sprites">
+
+            <!-- EV Inputs -->
+            <div class="ev">
+                <div class="ev_input">
+                    <div class="ev_label">HP</div>
+                    <input type="number" placeholder="0">
+                </div>
+                <div class="ev_input">
+                    <div class="ev_label">Def</div>
+                    <input type="number" placeholder="0">
+                </div>
+                <div class="ev_input">
+                    <div class="ev_label">SpD</div>
+                    <input type="number" placeholder="0">
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
