@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex Calculator</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/atkdef.css">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/field.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="sprites/calculator.png">
+</head>
+
+<body>
+    <!-- Attacker Section -->
+    <div class = "atk">
+        <div class = "label">ATTACKER</div>
+        <!-- Search Bar -->
+        <div class="search-bar-atk">
+            <div class="search-bar">
+                <input type="text" id = "atk-input-box" placeholder="Enter..." autocomplete="off"> 
+            </div>
+            <div class="atk-results"></div>
+            <script src="atkjs/atk-autocomplete.js"></script>
+        </div>
+        <!-- Pokemon Sprite -->
+        <img id="atk-sprite"
+             src=""
+             class="pokemon-sprites">
+        <script src="atkjs/atk-dynamicimage.js"></script>
+
+        <div class="atk-info">
+            <!-- Item -->
+            <div class="atk-item">
+                <div class="item-title">item:</div> 
+                <select class="item-select">
+                    <option>None</option>
+                    <option>Light Ball</option>
+                </select>
+            </div>
+            <!-- Move -->
+            <div class="atk-move">
+                <div class="move-title">move:</div> 
+                <select class="move-select">
+                    <option>None</option>
+                    <option>Thunderbolt</option>
+                </select>
+            </div>
+            <!-- Ability -->
+            <div class="atk-ability">
+                <div class="ability-title">ability:</div>
+                <select class="ability-select">
+                    <option>None</option>
+                    <option>Lightning Rod</option>
+                </select>
+            </div>
+            <!-- Tera Type -->
+            <div class="atk-tera">
+                <div class="tera-title">tera:</div> 
+                <select class="tera-select">
+                    <option>Bug</option>
+                    <option>Electric</option>
+                </select>
+                <img id="tera-button"
+                     src="sprites/teragem.png"
+                     class="teragem">
+            </div>
+            <!-- EV Inputs-->
+            <div class="ev-attacker">
+                <div class="ev-atk">
+                    <div class="ev-label">ATK</div>
+                    <input class="ev-input" type="number" placeholder="EVs" step="4" min="0">
+                    <select class="stat-boosts">
+                        <option>+6</option>
+                        <option>+5</option>
+                        <option>+4</option>
+                        <option>+3</option>
+                        <option>+2</option>
+                        <option>+1</option>
+                        <option selected>--</option>
+                        <option>-1</option>
+                        <option>-2</option>
+                        <option>-3</option>
+                        <option>-4</option>
+                        <option>-5</option>
+                        <option>-6</option>
+                    </select>
+                    <!-- Script that calculates the final value-->
+                </div>
+                <div class="ev-spa">
+                    <div class="ev-label">SPA</div>
+                    <input class="ev-input" type="number" placeholder="EVs" step="4" min="0" max="252">
+                    <select class="stat-boosts">
+                        <option>+6</option>
+                        <option>+5</option>
+                        <option>+4</option>
+                        <option>+3</option>
+                        <option>+2</option>
+                        <option>+1</option>
+                        <option selected>--</option>
+                        <option>-1</option>
+                        <option>-2</option>
+                        <option>-3</option>
+                        <option>-4</option>
+                        <option>-5</option>
+                        <option>-6</option>
+                    </select>
+                    <!-- Script that calculates the final value-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output of Result -->
+    <div class = "output">
+        <div class="output-text">
+            <p class="damage-string"></p>
+            <p class="pokemon-names"></p>
+            <script src="calculatedamage.js"></script>
+        </div>
+        <button class="damage-button" onclick="dealDamage()">Attack!</button>
+    </div>
+
+    <!-- Field Conditions -->
+    <div class = "field-conditions">
+        <div class="label">FIELD</div>
+        <div class="field-grid">
+            <div class="weather">
+                Weather
+                <select class="weather-select">
+                    <option value="">None</option>
+                    <option value="Sun">Sun</option>
+                    <option value="Rain">Rain</option>
+                    <option value="Sand">Sand</option>
+                    <option value="Snow">Snow</option>
+                </select>
+            </div>
+            <div class="terrain">
+                Terrain
+                <select class="terrain-select">
+                    <option value="">None</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Grassy">Grassy</option>
+                    <option value="Misty">Misty</option>
+                    <option value="Psychic">Psychic</option>
+                </select>
+            </div>
+            <div class="modifiers">
+                modifiers
+                <div class="modifier-container">
+                    <select class="modifier-select">
+                        <option value="">Select Modifier</option>
+                        <option value="reflect">Reflect</option>
+                        <option value="lightscreen">Light Screen</option>
+                        <option value="auroraveil">Aurora Veil</option>
+                        <option value="singletarget">Single Target</option>
+                        <option value="friendguard">Friend Guard</option>
+                        <option value="tabletsofruin">Tablets of Ruin (-Atk)</option>
+                        <option value="swordofruin">Sword of Ruin (-Def)</option>
+                        <option value="vesselofruin">Vessel of Ruin (-SpA)</option>
+                        <option value="beadsofruin">Beads of Ruin (-SpD)</option>
+                    </select>
+                    <div class="modifier-list"></div>
+                </div>
+                <script src="modifier_handler.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <!-- Defender -->
+    <div class="def">
+        <div class = "label">DEFENDER</div>
+        <!-- Search Bar -->
+        <div class="search-bar-def">
+            <div class="search-bar">
+                <input type="text" id = "def-input-box" placeholder="Enter..." autocomplete="off"> 
+            </div>
+            <div class="def-results"></div>
+            <script src="defjs/def-autocomplete.js"></script>
+        </div>
+        <!-- Pokemon Sprite -->
+        <img id="def-sprite"
+             src=""
+             class="pokemon-sprites">
+        <script src="defjs/def-dynamicimage.js"></script>
+
+        <div class="def-info">
+            <!-- Item -->
+            <div class="def-item">
+                <div class="item-title">item:</div> 
+                <select class="item-select">
+                    <option>None</option>
+                    <option>Light Ball</option>
+                </select>
+            </div>
+            <!-- Move -->
+            <div class="def-move">
+                <div class="move-title">move:</div> 
+                <select class="move-select">
+                    <option>None</option>
+                    <option>Thunderbolt</option>
+                </select>
+            </div>
+            <!-- Ability -->
+            <div class="def-ability">
+                <div class="ability-title">ability:</div>
+                <select class="ability-select">
+                    <option>None</option>
+                    <option>Lightning Rod</option>
+                </select>
+            </div>
+            <!-- Tera Type -->
+            <div class="def-tera">
+                <div class="tera-title">tera:</div> 
+                <select class="tera-select">
+                    <option>Bug</option>
+                    <option>Electric</option>
+                </select>
+                <img id="tera-button"
+                     src="sprites/teragem.png"
+                     class="teragem">
+            </div>
+            <!-- EV Inputs-->
+            <div class="ev-defender">
+                <div class="ev-hp">
+                    <div class="ev-label">HP</div>
+                    <input class="ev-input" type="number" placeholder="EVs" step="4" min="0">
+                    <!-- Script that calculates the final value-->
+                </div>
+                <div class="ev-def">
+                    <div class="ev-label">DEF</div>
+                    <input class="ev-input" type="number" placeholder="EVs" step="4" min="0">
+                    <select class="stat-boosts">
+                        <option>+6</option>
+                        <option>+5</option>
+                        <option>+4</option>
+                        <option>+3</option>
+                        <option>+2</option>
+                        <option>+1</option>
+                        <option selected>--</option>
+                        <option>-1</option>
+                        <option>-2</option>
+                        <option>-3</option>
+                        <option>-4</option>
+                        <option>-5</option>
+                        <option>-6</option>
+                    </select>
+                    <!-- Script that calculates the final value-->
+                </div>
+                <div class="ev-spd">
+                    <div class="ev-label">SPD</div>
+                    <input class="ev-input" type="number" placeholder="EVs" step="4" min="0" max="252">
+                    <select class="stat-boosts">
+                        <option>+6</option>
+                        <option>+5</option>
+                        <option>+4</option>
+                        <option>+3</option>
+                        <option>+2</option>
+                        <option>+1</option>
+                        <option selected>--</option>
+                        <option>-1</option>
+                        <option>-2</option>
+                        <option>-3</option>
+                        <option>-4</option>
+                        <option>-5</option>
+                        <option>-6</option>
+                    </select>
+                    <!-- Script that calculates the final value-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

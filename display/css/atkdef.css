@@ -1,0 +1,165 @@
+/* Base */
+.atk, .def {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 5px;
+}
+
+/* Search Bar */
+.search-bar-atk, .search-bar-def {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.search-bar {
+    color: white;
+    display: flex;
+    width: 100%;
+}
+
+.search-bar-atk input, .search-bar-def input {
+    flex: 1;
+    font-size: 0.7rem;
+    border-radius: 5px;
+    border-color: black;
+    padding-left: 5%;
+    max-width: 100%;
+}
+
+.atk-results, .def-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 100px;
+    overflow-y: auto;
+    background-color: white;
+    z-index: 2;
+    font-size: 0.6rem;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.atk-results ul, .def-results ul {
+    margin: 0;
+}
+
+.atk-results ul li, .def-results ul li {
+    list-style: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+}
+
+/* Pokemon Sprites */
+.pokemon-sprites {
+    height: max-content;
+    margin: 0 auto;
+    position: center;
+    z-index: 1;
+}
+
+/* Items, Abilities*/
+.atk-info, .def-info {
+    display: grid;
+    row-gap: 5px;
+}
+
+.atk-item, .atk-ability, .atk-move, .atk-tera, 
+.def-item, .def-ability, .def-move, .def-tera {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.item-title, .ability-title, .move-title, .tera-title, .ev-label {
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding-right: 5px;
+    flex-shrink: 0;
+}
+
+.item-select, .abilty-select, .move-select, .tera-select {
+    font-size: 0.5rem;
+    flex: 1;
+    height: 100%;
+    height: 1rem;
+}
+
+#tera-button {
+    height: 1rem;
+    filter: grayscale(100);
+    padding-left: 5px;
+}
+
+#tera-button:hover {
+    cursor: pointer;
+    filter: brightness(0.5);
+}
+
+#tera-button:active {
+    cursor: pointer;
+    filter: brightness(1);
+}
+
+/* EV Inputs and Stat Boosts */
+.ev-attacker, .ev-defender {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding-bottom: 4%;
+    gap: 5px;
+}
+
+.ev-atk, .ev-spa, .ev-hp, .ev-def, .ev-spd {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ev-input {
+    font-size: 0.5rem;
+    height: 1rem;
+    max-width: 30%;
+}
+
+.stat-boosts {
+    max-width: 20%;
+}
+
+/* Damage */
+.damage-button {
+    width: 100px;
+    align-self: center;
+    background-color: #d73636;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.damage-button:hover {
+    background-color: #ca2424;
+}
+
+.damage-button:active {
+    background-color: #b32020;
+}
+
+/* Make all select elements in the attacker section extend to the end */
+.atk select, .def select {
+    width: 100%;
+    max-width: 100%;
+}

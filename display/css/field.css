@@ -1,0 +1,71 @@
+/* Field Conditions ---------------------------------------------------------- */
+.field-conditions { 
+    height: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    padding-top: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    row-gap: 10px;
+    padding-top: 10px;
+}
+
+select {
+    font-size: 0.5rem;
+    width: max-content;
+    padding: 1px;
+}
+
+.modifiers {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.modifier-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.modifier-select {
+    font-size: 0.5rem;
+    cursor: pointer;
+}
+
+.modifier-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: fit-content;
+    height: auto;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.modifier-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f1f1f1;
+    font-size: 0.5rem;
+}
+
+.modifier-item button {
+    background: none;
+    border: none;
+    color: #d73636;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0 5px;
+}
+
+.modifier-item button:hover {
+    color: #b32020;
+}
