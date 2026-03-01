@@ -9,7 +9,14 @@ import { ITEMS } from "../../backend/data";
 import { useState, useEffect } from "react";
 
 // Sprite utility functions using PokeAPI
-const getPokemonSpriteFromAPI = async (species: string): Promise<string> => {
+const getPokemonSpriteFromAPI = async (
+  species: string | null,
+): Promise<string> => {
+  // If no species, return substitute sprite directly
+  if (!species) {
+    return await getPokemonSpriteFallback();
+  }
+
   try {
     // Convert species name to ID format for PokeAPI
     const pokemonId = species
@@ -34,17 +41,16 @@ const getPokemonSpriteFromAPI = async (species: string): Promise<string> => {
       data.sprites.other?.home?.front_default ||
       data.sprites.other?.["official-artwork"]?.front_default ||
       data.sprites.other?.dream_world?.front_default ||
-      getPokemonSpriteFallback(pokemonId)
+      (await getPokemonSpriteFallback())
     );
   } catch {
-    return getPokemonSpriteFallback(species);
+    return await getPokemonSpriteFallback();
   }
 };
 
-const getPokemonSpriteFallback = (species: string): string => {
-  // Fallback to direct GitHub URLs if API fails
-  const pokemonId = species.toLowerCase().replace(/[^a-z0-9]/g, "");
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+const getPokemonSpriteFallback = async (): Promise<string> => {
+  // Fetch substitute sprite from PokeAPI move endpoint
+  return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23666666'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23333333'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='%23999999' font-size='12' font-family='Arial'%3E?%3C/text%3E%3C/svg%3E";
 };
 
 const getItemSpriteFromAPI = async (itemName: string): Promise<string> => {
@@ -74,7 +80,7 @@ const getTeraSprite = (teraType?: string | null): string => {
 
 const getItemIcon = (): string => {
   // Load default item icon from public folder
-  return "/item-icon.svg";
+  return "/tera_normal.svg";
 };
 
 // Custom hook to handle Pokemon sprite loading
@@ -83,11 +89,6 @@ const usePokemonSprite = (species: string | null) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!species) {
-      setSprite("");
-      return;
-    }
-
     setLoading(true);
     getPokemonSpriteFromAPI(species)
       .then(setSprite)
@@ -179,11 +180,9 @@ export function PokemonPanel({
   return (
     <div className="bg-[#555] rounded overflow-hidden shadow-lg border border-gray-600">
       {/* Header with label */}
-      <div className="bg-[#333] px-2 py-0.5">
-        <p className="text-[10px] font-mono font-bold text-orange-400 uppercase tracking-wide">
-          {label}
-        </p>
-      </div>
+      <p className="bg-[#333] px-2 py-0.5 text-[10px] font-mono font-bold text-orange-400 uppercase tracking-wide">
+        {label}
+      </p>
 
       <div className="grid grid-cols-[100px_1fr] gap-3 p-2">
         {/* Search Bar - Fixed Height */}
@@ -197,26 +196,14 @@ export function PokemonPanel({
 
         {/* Sprite */}
         <div className="row-start-2 w-24 h-24 bg-gray-700/40 rounded border border-gray-600 flex items-center justify-center shrink-0">
-          {pokemon ? (
-            pokemonSpriteLoading ? (
-              <div className="text-gray-400 text-xs text-center">
-                Loading...
-              </div>
-            ) : (
-              <img
-                src={pokemonSprite}
-                alt={pokemon.species}
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  // Final fallback if all else fails
-                  const target = e.target as HTMLImageElement;
-                  target.src =
-                    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23666666'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23333333'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='%23999999' font-size='12' font-family='Arial'%3E?%3C/text%3E%3C/svg%3E";
-                }}
-              />
-            )
+          {pokemonSpriteLoading ? (
+            <div className="text-gray-400 text-xs text-center">Loading...</div>
           ) : (
-            <div className="text-gray-400 text-xs text-center">No Pokemon</div>
+            <img
+              src={pokemonSprite}
+              alt={pokemon?.species || "substitute"}
+              className="w-full h-full object-contain"
+            />
           )}
         </div>
 
@@ -228,7 +215,7 @@ export function PokemonPanel({
               <div className="flex flex-row gap-1">
                 {/* Tera Type */}
                 <div className="flex flex-1 items-center gap-0.5">
-                  <div className="w-4 h-4 shrink-0">
+                  <div className="w-7 h-7 shrink-0">
                     <img
                       src={getTeraSprite(teraType)}
                       alt="Tera"
@@ -260,14 +247,13 @@ export function PokemonPanel({
 
                 {/* Item */}
                 <div className="flex flex-2 items-center gap-0.5">
-                  <div className="w-4 h-4 bg-gray-700/50 rounded flex items-center justify-center shrink-0">
+                  <div className="w-7 h-7 bg-gray-700/50 rounded flex items-center justify-center shrink-0">
                     {itemSpriteLoading ? (
                       <div className="w-3 h-3 bg-gray-600 rounded animate-pulse"></div>
                     ) : (
                       <img
                         src={itemSprite}
                         alt={item || "Item"}
-                        className="w-3 h-3"
                         onError={(e) => {
                           // Fallback to default item icon
                           const target = e.target as HTMLImageElement;

@@ -33,20 +33,31 @@ export default function Players() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      {/* Attacker Panel - Left */}
-      <PokemonPanel
-        isAttacker={true}
-        damageResults={getAttackerDamageResults()}
-        label="Attacker"
-      />
-
-      {/* Defender Panel - Right */}
-      <PokemonPanel
-        isAttacker={false}
-        damageResults={getDefenderDamageResults()}
-        label="Defender"
-      />
-    </div>
+    <>
+      <div className="flex flex-col items-baseline gap-2 col-start-1 col-end-1">
+        <PokemonPanel
+          isAttacker={true}
+          damageResults={getAttackerDamageResults()}
+          label="Attacker"
+        />{" "}
+        <PokemonPanel
+          isAttacker={false}
+          damageResults={getDefenderDamageResults()}
+          label="Defender"
+        />
+      </div>
+      <div className="flex flex-col items-baseline gap-2 col-start-3 col-end-3">
+        <PokemonPanel
+          isAttacker={true}
+          damageResults={getAttackerDamageResults()}
+          label="Attacker"
+        />{" "}
+        <PokemonPanel
+          isAttacker={false}
+          damageResults={getDefenderDamageResults()}
+          label="Defender"
+        />
+      </div>
+    </>
   );
 }

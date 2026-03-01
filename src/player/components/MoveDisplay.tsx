@@ -10,19 +10,17 @@ export function MoveDisplay({ result }: MoveDisplayProps) {
 
   if (move.basePower === 0) return null;
 
-  const damagePercent = `${minPercent.toFixed(1)}% - ${maxPercent.toFixed(1)}%`;
+  const safeMin = Math.max(0, Math.min(100, minPercent));
+  const safeMax = Math.max(0, Math.min(100, maxPercent));
+  const rangeWidth = Math.max(0, safeMax - safeMin);
 
-  const getKOIndicator = () => {
-    if (minPercent >= 100) return "OHKO";
-    if (result.guaranteed2HKO) return "2HKO";
-    if (result.guaranteed3HKO) return "3HKO";
-    return null;
-  };
-
-  const koIndicator = getKOIndicator();
+  // Calculate positions for health bar (damage comes from right side)
+  const greenWidth = 100 - safeMax; // Remaining health after max damage
+  const lightRedWidth = rangeWidth; // Damage range (min to max)
+  const darkRedWidth = safeMin; // Guaranteed damage
 
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-0.5 p-1 w-full">
       <div
         className="h-4 px-1.5 rounded flex items-center justify-center shadow-sm"
         style={{ backgroundColor: getTypeColor(move.type) }}
@@ -31,15 +29,26 @@ export function MoveDisplay({ result }: MoveDisplayProps) {
           {move.name}
         </p>
       </div>
-      <div className="flex items-center justify-between gap-1">
-        <p className="font-bold text-[9px] text-white leading-none">
-          {damagePercent}
+      <div className="relative rounded-2xl bg-gray-300/20 h-4 w-full overflow-hidden">
+        {/* Green: remaining health */}
+        <div
+          className="absolute h-full bg-green-500 rounded-l-full"
+          style={{ left: 0, width: `${greenWidth}%` }}
+        />
+        {/* Light red: damage range (the variance) */}
+        <div
+          className="absolute h-full bg-red-400"
+          style={{ left: `${greenWidth}%`, width: `${lightRedWidth}%` }}
+        />
+        {/* Dark red: guaranteed damage */}
+        <div
+          className="absolute h-full bg-red-600 rounded-r-full"
+          style={{ left: `${greenWidth + lightRedWidth}%`, width: `${darkRedWidth}%` }}
+        />
+        {/* Percentage text */}
+        <p className="absolute inset-0 flex items-center justify-center font-bold text-[9px] text-white leading-none drop-shadow-sm">
+          {minPercent}% - {maxPercent}%
         </p>
-        {koIndicator && (
-          <span className="text-[8px] font-bold text-green-400 leading-none px-1 bg-green-900/30 rounded">
-            {koIndicator}
-          </span>
-        )}
       </div>
     </div>
   );

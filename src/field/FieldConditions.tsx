@@ -52,7 +52,7 @@ export function FieldConditions() {
   };
 
   return (
-    <div className="bg-[#555] rounded overflow-hidden shadow-lg border border-gray-600">
+    <div className="bg-[#555] rounded overflow-hidden shadow-lg border border-gray-600 col-start-2 col-end-2 row-start-1 row-end-2">
       <div className="bg-[#333] px-2 py-0.5 border-b border-gray-700">
         <p className="text-[10px] font-mono font-bold text-orange-400 uppercase tracking-wide">
           Field Conditions
